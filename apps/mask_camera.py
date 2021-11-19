@@ -22,7 +22,8 @@ def app():
 
 
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor, \
-                    async_processing=True)
+                    async_processing=True,
+                    media_stream_constraints={"video": True, "audio": False},)
 
 
 
