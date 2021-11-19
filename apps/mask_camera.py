@@ -44,7 +44,7 @@ def app():
                 (mask, withoutMask) = model.predict(face)[0]
 
                 label = "mask" if mask > withoutMask else "no_mask"
-                color = (0, 255, 0) if label == "mask" else (255, 0, 0)
+                color = (0, 255, 0) if label == "mask" else (0, 0, 255)
 
                 label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
 
