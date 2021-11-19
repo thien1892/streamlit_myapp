@@ -10,16 +10,18 @@ model = load_model("data/mask_detector.model")
 def app():
     st.title("Ứng dụng phát hiện không đeo khẩu trang")
     text_cam = st.text_input('Nhập địa chỉ camera IP của bạn. Nếu dùng webcam nhập 0 (hoặc 1,.. nếu có nhiều webcam)')
+    # text_cam
     faceCascade= cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml")
     run = st.checkbox('Mở webcam/ camera IP')
     FRAME_WINDOW = st.image([])
-    if text_cam is not None:
-        if text_cam.isnumeric():
-            camera = cv2.VideoCapture(int(text_cam))
-        else:
-            camera = cv2.VideoCapture(str(text_cam))
-    else:
-        camera = cv2.VideoCapture(0)
+    # if text_cam is not None:
+    #     if text_cam.isnumeric():
+    #         camera = cv2.VideoCapture(int(text_cam))
+    #     else:
+    #         camera = cv2.VideoCapture(str(text_cam))
+    # else:
+    camera = cv2.VideoCapture(0)
+    
     camera.set(3, 640)
     camera.set(4, 480)
 
