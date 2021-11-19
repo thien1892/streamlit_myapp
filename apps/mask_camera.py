@@ -17,8 +17,8 @@ def app():
 
 
     ctx = webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
+    s_value = st.slider("Confidence threshold", 0.0, 1.0, 0.5, 0.05)
 
-    DEFAULT_CONFIDENCE_THRESHOLD = 0.5
+    # DEFAULT_CONFIDENCE_THRESHOLD = 0.5
     if ctx.video_processor:
-        ctx.video_processor.some_value = \
-            st.slider("Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05)
+        ctx.video_processor.some_value = s_value
