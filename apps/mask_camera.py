@@ -1,4 +1,4 @@
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import VideoProcessorBase, WebRtcMode, webrtc_streamer
 import av
 import streamlit as st
 
@@ -22,7 +22,7 @@ def app():
 
 
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor, \
-                    async_processing=True,
+                    mode=WebRtcMode.SENDRECV,
                     media_stream_constraints={"video": True, "audio": False},)
 
 
