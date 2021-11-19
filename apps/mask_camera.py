@@ -1,5 +1,6 @@
 from streamlit_webrtc import webrtc_streamer
 import av
+import streamlit as st
 
 def app():
     class VideoProcessor:
