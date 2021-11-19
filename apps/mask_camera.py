@@ -8,6 +8,9 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 import numpy as np
 
+model = load_model("data/mask_detector.model")
+faceCascade= cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml")
+
 def app():
     class VideoProcessor:
         def __init__(self):
