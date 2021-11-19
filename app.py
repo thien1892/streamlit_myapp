@@ -14,7 +14,7 @@ app = MultiApp()
 
 # Add all your application here
 app.add_app("Khám phá data", home.app)
-app.add_app("Nhận diện đeo khẩu trang", mask.app)
+# app.add_app("Nhận diện đeo khẩu trang", mask.app)
 app.add_app("Nhận diện đeo khẩu trang qua camera", mask_camera.app)
 # The main app
 app.run()
