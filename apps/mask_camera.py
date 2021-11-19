@@ -12,7 +12,7 @@ model = load_model("data/mask_detector.model")
 faceCascade= cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml")
 
 def app():
-    class VideoProcessor:
+    class VideoProcessor(VideoProcessorBase):
         def recv(self, frame):
             img = frame.to_ndarray(format="bgr24")
 
