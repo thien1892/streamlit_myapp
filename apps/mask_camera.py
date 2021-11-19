@@ -21,7 +21,8 @@ def app():
             return av.VideoFrame.from_ndarray(flipped, format="bgr24")
 
 
-    webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
+    webrtc_streamer(key="example", video_processor_factory=VideoProcessor, \
+                    async_processing=True)
 
 
 
