@@ -13,8 +13,8 @@ model = load_model("data/mask_detector.model")
 
 
 ###########################
-percent_plus = 0.15
-threshold =0.9
+percent_plus = 0.015
+threshold =0.95
 ###########################
 def app():
     # class VideoProcessor():
