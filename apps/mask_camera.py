@@ -12,7 +12,7 @@ model = load_model("data/mask_detector.model")
 faceCascade= cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml")
 
 def app():
-    class VideoProcessor(VideoProcessorBase):
+    class VideoProcessor():
         def recv(self, frame):
             img = frame.to_ndarray(format="bgr24")
 
@@ -22,8 +22,8 @@ def app():
 
 
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor, \
-                    mode=WebRtcMode.SENDRECV,
-                    media_stream_constraints={"video": True, "audio": False},)
+                    rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+                    media_stream_constraints={"video": True, "audio": False})
 
 
 
