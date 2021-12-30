@@ -73,7 +73,7 @@ def app():
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
             # draw text and score in top left corner
             label = "%s (%.3f)" % (v_labels[i], v_scores[i])
-            cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (0, 150, 0), 3)
+            cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (255, 0, 0), 1)
         st.image(img, caption='Detect objects with Yolo')
 
 #         return av.VideoFrame.from_ndarray(img, format="bgr24")
