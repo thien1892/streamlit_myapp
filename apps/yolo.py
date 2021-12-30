@@ -4,9 +4,9 @@ import cv2
 from apps.yolo3 import *
 
 ##############################
-frameWidth = 640
-frameHeight = 480
-image_h, image_w = 480, 640
+# frameWidth = 640
+# frameHeight = 480
+# image_h, image_w = 480, 640
 input_w, input_h = 416, 416
 anchors = [[116,90, 156,198, 373,326], [30,61, 62,45, 59,119], [10,13, 16,30, 33,23]]
 class_threshold = 0.6
@@ -35,6 +35,7 @@ def app():
     class VideoProcessor:
         def recv(self, frame):
             img = frame.to_ndarray(format="bgr24")
+            image_h, image_w = img.shape[:2]
             image = cv2.resize(img, (input_w, input_h))
             image = image.astype('float32')
             image /= 255.0

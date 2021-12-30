@@ -7,9 +7,9 @@ from PIL import Image
 import numpy as np
 
 ##############################
-frameWidth = 640
-frameHeight = 480
-image_h, image_w = 480, 640
+# frameWidth = 640
+# frameHeight = 480
+# image_h, image_w = 480, 640
 input_w, input_h = 416, 416
 anchors = [[116,90, 156,198, 373,326], [30,61, 62,45, 59,119], [10,13, 16,30, 33,23]]
 class_threshold = 0.6
@@ -42,6 +42,7 @@ def app():
     if uploaded_file is not None:
         img = Image.open(uploaded_file)
         img = np.array(img)
+        image_h, image_w = img.shape[:2]
         # img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         # img = cv2.imread(uploaded_file)
         image = cv2.resize(img, (input_w, input_h))
