@@ -3,10 +3,7 @@ from multiapp import MultiApp
 from apps import home, mask_v2, yolo_img # import your app modules here
 
 st.markdown("""
-# Ứng dụng Teck with Thiện
-
-Đây là trang web demo một số ứng dụng của **thien1892**.
-
+# Ứng dụng Demo của **Thien1892**
 """)
 app = MultiApp()
 

@@ -17,6 +17,10 @@ percent_plus = 0.015
 threshold =0.95
 ###########################
 def app():
+    st.title('Phát hiện đeo khẩu trang')
+    st.write('''
+    Ứng dụng demo phát hiện đeo khẩu trang hay không qua camera.
+    ''')
 
     class VideoProcessor:
         def recv(self, frame):

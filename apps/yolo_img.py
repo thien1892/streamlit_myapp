@@ -35,6 +35,11 @@ model = load_model('yolov3.h5')
 # Model
 # PyTorch Hub
 def app():
+    st.title('Phát hiện vật thể qua mô hình Yolo')
+    st.write('''
+    Phát hiện vật thể qua mô hình Yolo. Mình dự định triển khai để chạy trên Webcam như ứng dụng 
+    phát hiện đeo khẩu trang nhưng chạy một lúc streamlit báo hết tài nguyên :)). Nên bạn tạm up ảnh lên xem demo vậy!!!
+    ''')
     uploaded_file = st.file_uploader('Up load data của bạn', type= ['jpg', 'png'])
 
     # class VideoProcessor:
@@ -75,7 +80,7 @@ def app():
             # draw text and score in top left corner
             label = "%s (%.3f)" % (v_labels[i], v_scores[i])
             cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (255, 0, 0), 1)
-            st.text(f'Detect {i+1}: {v_labels[i]} with confident {v_scores[i]:.3f}')
+            st.text(f'Detect {i+1}: {v_labels[i]} with confident {v_scores[i]:.2f} %')
         st.image(img, caption='Detect objects with Yolo')
 
 #         return av.VideoFrame.from_ndarray(img, format="bgr24")
