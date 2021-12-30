@@ -66,7 +66,7 @@ def app():
                 label = "%s (%.3f)" % (v_labels[i], v_scores[i])
                 cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 150, 0), 3)
 
-            return av.VideoFrame.from_ndarray(image, format="bgr24")
+            return av.VideoFrame.from_ndarray(img, format="bgr24")
     
     webrtc_streamer(key="example", video_processor_factory=VideoProcessor, \
                     rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
