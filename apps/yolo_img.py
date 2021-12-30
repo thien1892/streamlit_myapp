@@ -3,6 +3,8 @@
 import cv2
 from apps.yolo3 import *
 import streamlit as st
+from PIL import Image
+import numpy as np
 
 ##############################
 frameWidth = 640
@@ -38,7 +40,10 @@ def app():
     # class VideoProcessor:
     #     def recv(self, frame):
     if uploaded_file is not None:
-        img = cv2.imread(uploaded_file)
+        img = Image.open(uploaded_file)
+        img = np.array(img)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        # img = cv2.imread(uploaded_file)
         image = cv2.resize(img, (input_w, input_h))
         image = image.astype('float32')
         image /= 255.0
