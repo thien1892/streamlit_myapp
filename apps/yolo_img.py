@@ -75,6 +75,7 @@ def app():
             # draw text and score in top left corner
             label = "%s (%.3f)" % (v_labels[i], v_scores[i])
             cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (255, 0, 0), 1)
+            st.text(f'Detect {i+1}: {v_labels[i]} with confident {v_scores[i]:.3f}')
         st.image(img, caption='Detect objects with Yolo')
 
 #         return av.VideoFrame.from_ndarray(img, format="bgr24")
