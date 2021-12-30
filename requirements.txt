@@ -8,3 +8,5 @@ tensorflow==2.7.0
 opencv-python-headless
 streamlit_webrtc==0.31.1
 mtcnn==0.1.1
+
+googledrivedownloader>=0.4
