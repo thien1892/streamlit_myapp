@@ -42,7 +42,7 @@ def app():
     if uploaded_file is not None:
         img = Image.open(uploaded_file)
         img = np.array(img)
-        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        # img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         # img = cv2.imread(uploaded_file)
         image = cv2.resize(img, (input_w, input_h))
         image = image.astype('float32')
@@ -73,8 +73,8 @@ def app():
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
             # draw text and score in top left corner
             label = "%s (%.3f)" % (v_labels[i], v_scores[i])
-            cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 150, 0), 3)
-            st.image(img, caption='Detect objects with Yolo')
+            cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (0, 150, 0), 3)
+        st.image(img, caption='Detect objects with Yolo')
 
 #         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
