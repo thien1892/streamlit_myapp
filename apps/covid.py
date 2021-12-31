@@ -88,7 +88,7 @@ def app():
     ''')
     uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav', 'mp3','mp4', 'aac'])
 
-    st.text(uploaded_file.name.split(".")[-1])
+    st.text(uploaded_file.name)
     # # class VideoProcessor:
     # #     def recv(self, frame):
     # if uploaded_file is not None:
