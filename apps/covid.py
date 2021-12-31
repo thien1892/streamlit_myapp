@@ -123,7 +123,7 @@ def app():
                 y_predict = np.where(mask_X == True, y_predict, 0)
                 y_predict[:,1]
                 if mask_X == True:
-                st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
+                    st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
             except Exception as e:
                 audio_file = None
                 st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
