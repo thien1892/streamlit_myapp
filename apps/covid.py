@@ -20,9 +20,9 @@ def load_vgg():
 def load_yamnet():
 	return hub.load('https://tfhub.dev/google/yamnet/1')
 
-@st.cache
-def load_covid():
-	return joblib.load("data/example_model.h5")
+# @st.cache
+# def load_covid():
+# 	return joblib.load("data/example_model.h5")
 
 
 modelvgg = load_vgg()
@@ -148,7 +148,7 @@ def app():
         # extract features
         X = make_acoustic_feat(path)
         
-        model = load_covid()
+        model = joblib.load("data/example_model.h5")
         y_predict = model.predict_proba(X)
         y_predict = np.where(mask_X == True, y_predict, 0)
         y_predict[:,1]
