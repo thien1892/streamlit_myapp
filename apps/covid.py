@@ -116,13 +116,13 @@ def app():
                 if mask_X == False:
                     st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
                 # extract features
-                X = make_acoustic_feat(path)
-                
-                model = joblib.load("data/example_model.h5")
-                y_predict = model.predict_proba(X)
-                y_predict = np.where(mask_X == True, y_predict, 0)
-                y_predict[:,1]
-                if mask_X == True:
+                else:
+                    X = make_acoustic_feat(path)
+                    
+                    model = joblib.load("data/example_model.h5")
+                    y_predict = model.predict_proba(X)
+                    y_predict = np.where(mask_X == True, y_predict, 0)
+                    y_predict[:,1]
                     st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
             except Exception as e:
                 audio_file = None
