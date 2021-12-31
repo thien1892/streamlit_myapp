@@ -22,7 +22,7 @@ def load_yamnet():
 
 @st.cache
 def load_covid():
-	return joblib.load("data/example_model_gg.h5")
+	return joblib.load("data/example_model.h5")
 
 
 modelvgg = load_vgg()
