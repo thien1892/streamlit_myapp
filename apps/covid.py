@@ -62,42 +62,42 @@ def make_acoustic_feat(filename):
 
     return feat
 
-def convert_to_wav(file_path):
-    """
-    This function is to convert an audio file to .wav file
-    Args:
-        file_path (str): paths of audio file needed to be convert to .wav file
-    Returns:
-        new path of .wav file
-    """
-    ext = file_path.split(".")[-1]
-    assert ext in [
-        "mp4", "mp3", "acc"], "The current API does not support handling {} files".format(ext)
+# def convert_to_wav(file_path):
+#     """
+#     This function is to convert an audio file to .wav file
+#     Args:
+#         file_path (str): paths of audio file needed to be convert to .wav file
+#     Returns:
+#         new path of .wav file
+#     """
+#     ext = file_path.split(".")[-1]
+#     assert ext in [
+#         "mp4", "mp3", "acc"], "The current API does not support handling {} files".format(ext)
 
-    sound = AudioSegment.from_file(file_path, ext)
-    wav_file_path = ".".join(file_path.split(".")[:-1]) + ".wav"
-    sound.export(wav_file_path, format="wav")
+#     sound = AudioSegment.from_file(file_path, ext)
+#     wav_file_path = ".".join(file_path.split(".")[:-1]) + ".wav"
+#     sound.export(wav_file_path, format="wav")
 
-    os.remove(file_path)
-    return wav_file_path
+#     os.remove(file_path)
+#     return wav_file_path
 
 def app():
     st.title('Dự đoán covid qua tiếng ho')
     st.write('''
     Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. dự liệu thu thập gần 6000 tiếng ho, độ đặc hiệu: 98.95%, độ nhạy: 58.33%
     ''')
-    uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav', 'mp3','mp4', 'aac'])
+    uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
 
     # st.text(uploaded_file)
     # class VideoProcessor:
     #     def recv(self, frame):
     if uploaded_file is not None:
-        if not uploaded_file.name.endswith('wav'):
-            uploaded_file = convert_to_wav(uploaded_file)
+        # if not uploaded_file.name.endswith('wav'):
+        #     uploaded_file = convert_to_wav(uploaded_file)
         # file is cough or no_cough
         mask_X = mask_acoustic_feat(uploaded_file)
         if mask_X == False:
-            st.text(f'Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
+            st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
         # extract features
         X = make_acoustic_feat(uploaded_file)
         
