@@ -95,7 +95,7 @@ def save_audio(file):
 def app():
     st.title('Dự đoán covid qua tiếng ho')
     st.write('''
-    Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. dự liệu thu thập gần 6000 tiếng ho, độ đặc hiệu: 98.95%, độ nhạy: 58.33%
+    Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. Dữ liệu đào tạo thu thập gần 6000 tiếng ho cho độ đặc hiệu: 98.95%, độ nhạy: 58.33%.
     ''')
     # uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
     audio_file = st.file_uploader("Upload audio file", type=['wav', 'mp3', 'ogg'])
