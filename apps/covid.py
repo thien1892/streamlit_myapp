@@ -41,7 +41,7 @@ def mask_acoustic_feat(filename):
     f1 = np.array(class_scores)[0]
     f2 = np.array(class_scores)[42]
     # if f2 >  0.4 or (f2 < 0.2 and f1 > 0.2):
-    if f2 >  0.2:
+    if f2 >  0.1:
         mask_values = True
     else:
         mask_values = False
@@ -122,6 +122,7 @@ def app():
                 y_predict = model.predict_proba(X)
                 y_predict = np.where(mask_X == True, y_predict, 0)
                 y_predict[:,1]
+                if mask_X == True:
                 st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
             except Exception as e:
                 audio_file = None
