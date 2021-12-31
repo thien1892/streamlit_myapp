@@ -28,8 +28,15 @@ labels = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", 
 ##############################
 
 from google_drive_downloader import GoogleDriveDownloader as gdd
-gdd.download_file_from_google_drive(file_id='1bhTkqX_I-JU7zGCi0owRTmfdw0QW-z15',
+# gdd.download_file_from_google_drive(file_id='1bhTkqX_I-JU7zGCi0owRTmfdw0QW-z15',
+#                                     dest_path='./yolov3.h5')
+
+@st.cache
+def load_model():
+	return gdd.download_file_from_google_drive(file_id='1bhTkqX_I-JU7zGCi0owRTmfdw0QW-z15',
                                     dest_path='./yolov3.h5')
+
+
 model = load_model('yolov3.h5')
 
 # Model
@@ -40,7 +47,7 @@ def app():
     Phát hiện vật thể qua mô hình Yolo. Mình dự định triển khai để chạy trên Webcam như ứng dụng 
     phát hiện đeo khẩu trang nhưng chạy một lúc streamlit báo hết tài nguyên :)). Nên bạn tạm up ảnh lên xem demo vậy!!!
     ''')
-    uploaded_file = st.file_uploader('Up load data của bạn', type= ['jpg', 'png'])
+    uploaded_file = st.file_uploader('Tải ảnh của bạn lên', type= ['jpg', 'png'])
 
     # class VideoProcessor:
     #     def recv(self, frame):
