@@ -88,21 +88,22 @@ def app():
     ''')
     uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav', 'mp3','mp4', 'aac'])
 
-    # class VideoProcessor:
-    #     def recv(self, frame):
-    if uploaded_file is not None:
-        if uploaded_file.split(".")[-1] != 'wav':
-            uploaded_file = convert_to_wav(uploaded_file)
-        # file is cough or no_cough
-        mask_X = mask_acoustic_feat(uploaded_file)
-        if mask_X == False:
-            st.text(f'Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
-        # extract features
-        X = make_acoustic_feat(uploaded_file)
+    st.text(uploaded_file)
+    # # class VideoProcessor:
+    # #     def recv(self, frame):
+    # if uploaded_file is not None:
+    #     if uploaded_file.split(".")[-1] != 'wav':
+    #         uploaded_file = convert_to_wav(uploaded_file)
+    #     # file is cough or no_cough
+    #     mask_X = mask_acoustic_feat(uploaded_file)
+    #     if mask_X == False:
+    #         st.text(f'Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
+    #     # extract features
+    #     X = make_acoustic_feat(uploaded_file)
         
-        model = load_covid()
-        y_predict = model.predict_proba(X)
-        y_predict = np.where(mask_X == True, y_predict, 0)
-        y_predict[:,1]
-        st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
+    #     model = load_covid()
+    #     y_predict = model.predict_proba(X)
+    #     y_predict = np.where(mask_X == True, y_predict, 0)
+    #     y_predict[:,1]
+    #     st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
         
