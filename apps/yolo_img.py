@@ -25,6 +25,17 @@ labels = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", 
 	"chair", "sofa", "pottedplant", "bed", "diningtable", "toilet", "tvmonitor", "laptop", "mouse",
 	"remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator",
 	"book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"]
+
+labels_vi = ["người", "xe đạp", "ô tô", "xe máy", "máy bay", "xe buýt", "tàu hỏa", "xe tải",
+"thuyền", "đèn giao thông", "vòi chữa cháy", "biển báo dừng", "đồng hồ đỗ xe", "băng ghế",
+"chim", "mèo", "chó", "ngựa", "cừu", "bò", "voi", "gấu", "ngựa vằn", "hươu cao cổ",
+"ba lô", "ô", "túi xách", "cà vạt", "va li", "đĩa bay", "ván trượt", "ván trượt tuyết",
+"bóng thể thao", "diều", "gậy bóng chày", "găng tay bóng chày", "ván trượt", "ván lướt sóng",
+"vợt tennis", "chai", "ly rượu", "cốc", "nĩa", "dao", "muỗng", "bát", "chuối",
+"táo", "sandwich", "cam", "bông cải xanh", "cà rốt", "xúc xích", "pizza", "bánh rán", "bánh ngọt",
+"ghế", "ghế sofa", "chậu cây", "giường", "bàn ăn", "nhà vệ sinh", "tvmonitor", "máy tính xách tay", "chuột",
+"điều khiển từ xa", "bàn phím", "điện thoại di động", "lò vi sóng", "lò nướng", "máy nướng bánh mì", "bồn rửa", "tủ lạnh",
+"sách", "đồng hồ", "bình hoa", "kéo", "gấu bông", "máy sấy tóc", "bàn chải đánh răng"]
 ##############################
 
 from google_drive_downloader import GoogleDriveDownloader as gdd
@@ -78,21 +89,21 @@ def app():
         # get the details of the detected objects
         v_boxes, v_labels, v_scores = get_boxes(boxes, labels, class_threshold)
         # summarize what we found
-        for i in range(len(v_boxes)):
-            print(v_labels[i], v_scores[i])
+        # for i in range(len(v_boxes)):
+        #     print(v_labels[i], v_scores[i])
         for i in range(len(v_boxes)):
             box = v_boxes[i]
             # get coordinates
             y1, x1, y2, x2 = box.ymin, box.xmin, box.ymax, box.xmax
             # calculate width and height of the box
-            width, height = x2 - x1, y2 - y1
+            # width, height = x2 - x1, y2 - y1
             # create the shape
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
             # draw text and score in top left corner
             label = "%s (%.3f)" % (v_labels[i], v_scores[i])
             cv2.putText(img, label, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.45, (255, 0, 0), 1)
-            st.text(f'Detect {i+1}: {v_labels[i]} with confident {v_scores[i]:.2f} %')
-        st.image(img, caption='Detect objects with Yolo')
+            st.text(f'Phát hiện {i+1}: {labels_vi[labels.index(v_labels[i])]} với độ tin cậy {v_scores[i]:.2f} %')
+        st.image(img, caption='Phát hiện vật thể với Yolo')
 
 #         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
