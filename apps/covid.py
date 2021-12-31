@@ -81,29 +81,76 @@ def make_acoustic_feat(filename):
 #     os.remove(file_path)
 #     return wav_file_path
 
+# @st.cache
+def save_audio(file):
+    if file.size > 4000000:
+        return 1
+    # if not os.path.exists("audio"):
+    #     os.makedirs("audio")
+    folder = "audio"
+    datetoday = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    # clear the folder to avoid storage overload
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+    try:
+        with open("log0.txt", "a") as f:
+            f.write(f"{file.name} - {file.size} - {datetoday};\n")
+    except:
+        pass
+
+    with open(os.path.join(folder, file.name), "wb") as f:
+        f.write(file.getbuffer())
+    return 0
+
 def app():
     st.title('Dự đoán covid qua tiếng ho')
     st.write('''
     Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. dự liệu thu thập gần 6000 tiếng ho, độ đặc hiệu: 98.95%, độ nhạy: 58.33%
     ''')
-    uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
+    # uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
 
-    # st.text(uploaded_file)
-    # class VideoProcessor:
-    #     def recv(self, frame):
-    if uploaded_file is not None:
-        # if not uploaded_file.name.endswith('wav'):
-        #     uploaded_file = convert_to_wav(uploaded_file)
-        # file is cough or no_cough
-        mask_X = mask_acoustic_feat(uploaded_file)
-        if mask_X == False:
-            st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
-        # extract features
-        X = make_acoustic_feat(uploaded_file)
-        
-        model = load_covid()
-        y_predict = model.predict_proba(X)
-        y_predict = np.where(mask_X == True, y_predict, 0)
-        y_predict[:,1]
-        st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
+
+    audio_file = st.file_uploader("Upload audio file", type=['wav', 'mp3', 'ogg'])
+        if audio_file is not None:
+            if not os.path.exists("audio"):
+                os.makedirs("audio")
+            path = os.path.join("audio", audio_file.name)
+            if_save_audio = save_audio(audio_file)
+            if if_save_audio == 1:
+                st.warning("File size is too large. Try another file.")
+            elif if_save_audio == 0:
+                # extract features
+                # display audio
+                st.audio(audio_file, format='audio/wav', start_time=0)
+                # try:
+                #     wav, sr = librosa.load(path, sr=44100)
+                #     # Xdb = get_melspec(path)[1]
+                #     # mfccs = librosa.feature.mfcc(wav, sr=sr)
+                #     # # display audio
+                #     # st.audio(audio_file, format='audio/wav', start_time=0)
+                # except Exception as e:
+                #     audio_file = None
+                #     st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
+            else:
+                st.error("Unknown error")
+
+    # if uploaded_file is not None:
+
+            mask_X = mask_acoustic_feat(path)
+            if mask_X == False:
+                st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
+            # extract features
+            X = make_acoustic_feat(path)
+            
+            model = load_covid()
+            y_predict = model.predict_proba(X)
+            y_predict = np.where(mask_X == True, y_predict, 0)
+            y_predict[:,1]
+            st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
         
