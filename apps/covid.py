@@ -63,24 +63,6 @@ def make_acoustic_feat(filename):
 
     return feat
 
-# def convert_to_wav(file_path):
-#     """
-#     This function is to convert an audio file to .wav file
-#     Args:
-#         file_path (str): paths of audio file needed to be convert to .wav file
-#     Returns:
-#         new path of .wav file
-#     """
-#     ext = file_path.split(".")[-1]
-#     assert ext in [
-#         "mp4", "mp3", "acc"], "The current API does not support handling {} files".format(ext)
-
-#     sound = AudioSegment.from_file(file_path, ext)
-#     wav_file_path = ".".join(file_path.split(".")[:-1]) + ".wav"
-#     sound.export(wav_file_path, format="wav")
-
-#     os.remove(file_path)
-#     return wav_file_path
 
 # @st.cache
 def save_audio(file):
@@ -128,29 +110,35 @@ def app():
             # extract features
             # display audio
             st.audio(audio_file, format='audio/wav', start_time=0)
-            # try:
-            #     wav, sr = librosa.load(path, sr=44100)
-            #     # Xdb = get_melspec(path)[1]
-            #     # mfccs = librosa.feature.mfcc(wav, sr=sr)
-            #     # # display audio
-            #     # st.audio(audio_file, format='audio/wav', start_time=0)
-            # except Exception as e:
-            #     audio_file = None
-            #     st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
+            try:
+                mask_X = mask_acoustic_feat(path)
+                if mask_X == False:
+                    st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
+                # extract features
+                X = make_acoustic_feat(path)
+                
+                model = joblib.load("data/example_model.h5")
+                y_predict = model.predict_proba(X)
+                y_predict = np.where(mask_X == True, y_predict, 0)
+                y_predict[:,1]
+                st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
+            except Exception as e:
+                audio_file = None
+                st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
         else:
             st.error("Unknown error")
 
 # if uploaded_file is not None:
 
-        mask_X = mask_acoustic_feat(path)
-        if mask_X == False:
-            st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
-        # extract features
-        X = make_acoustic_feat(path)
+        # mask_X = mask_acoustic_feat(path)
+        # if mask_X == False:
+        #     st.text('Up lại âm thanh, đây không phải tiếng ho hoặc tiếng ho không rõ !!!')
+        # # extract features
+        # X = make_acoustic_feat(path)
         
-        model = joblib.load("data/example_model.h5")
-        y_predict = model.predict_proba(X)
-        y_predict = np.where(mask_X == True, y_predict, 0)
-        y_predict[:,1]
-        st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
+        # model = joblib.load("data/example_model.h5")
+        # y_predict = model.predict_proba(X)
+        # y_predict = np.where(mask_X == True, y_predict, 0)
+        # y_predict[:,1]
+        # st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
         
