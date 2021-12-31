@@ -14,6 +14,7 @@ Pillow>=7.1.2
 
 tensorflow-hub>=0.12.0
 # librosa==0.8.1
+libasound2-dev
 libsndfile1-dev
 # os
 pydub==0.25.1
