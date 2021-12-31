@@ -41,7 +41,7 @@ def mask_acoustic_feat(filename):
     f1 = np.array(class_scores)[0]
     f2 = np.array(class_scores)[42]
     # if f2 >  0.4 or (f2 < 0.2 and f1 > 0.2):
-    if f2 >  0.4:
+    if f2 >  0.2:
         mask_values = True
     else:
         mask_values = False
