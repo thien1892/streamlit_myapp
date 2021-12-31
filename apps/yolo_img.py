@@ -32,12 +32,16 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 #                                     dest_path='./yolov3.h5')
 
 @st.cache
-def load_model():
+def weight_yolo3():
 	return gdd.download_file_from_google_drive(file_id='1bhTkqX_I-JU7zGCi0owRTmfdw0QW-z15',
                                     dest_path='./yolov3.h5')
+    # return load_model('yolov3.h5')
+@st.cache
+def load_yolo():
+	return load_model('yolov3.h5')
 
-
-model = load_model('yolov3.h5')
+weight_yolo3()
+model = load_yolo()
 
 # Model
 # PyTorch Hub
