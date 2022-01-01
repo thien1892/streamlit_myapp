@@ -65,7 +65,7 @@ def make_acoustic_feat(filename):
     return feat
 
 
-# @st.cache
+@st.cache(ttl=2*3600)
 def save_audio(file):
     if file.size > 4000000:
         return 1
