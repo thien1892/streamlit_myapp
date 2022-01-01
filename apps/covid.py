@@ -28,6 +28,7 @@ def load_covid():
 modelvgg = load_vgg()
 yamnet_model = load_yamnet()
 
+@st.cache(ttl=20*60)
 def mask_acoustic_feat(filename):
     # mask_feat = []
     # for filename in X.file_path.values:
@@ -50,7 +51,7 @@ def mask_acoustic_feat(filename):
 
     return mask_values
     
-
+@st.cache(ttl=20*60)
 def make_acoustic_feat(filename):
     feat = []
     # for filename in X.file_path.values:
