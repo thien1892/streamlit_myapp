@@ -20,7 +20,7 @@ def load_vgg():
 def load_yamnet():
 	return hub.load('https://tfhub.dev/google/yamnet/1')
 
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None}, ttl=24*3600)
+@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
 def load_covid():
 	return joblib.load("data/example_model.h5")
 
