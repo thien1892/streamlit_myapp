@@ -65,7 +65,7 @@ def make_acoustic_feat(filename):
     return feat
 
 
-@st.cache(ttl=2*3600)
+@st.cache(ttl=5*60)
 def save_audio(file):
     if file.size > 4000000:
         return 1
@@ -98,7 +98,7 @@ def app():
     Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. Dữ liệu đào tạo thu thập gần 6000 tiếng ho cho độ đặc hiệu: 98.95%, độ nhạy: 58.33%.
     ''')
     # uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
-    audio_file = st.file_uploader("Upload audio file", type=['wav', 'mp3', 'ogg'])
+    audio_file = st.file_uploader("Tải file âm thanh lên:", type=['wav', 'mp3', 'ogg'])
     if audio_file is not None:
     # if audio_file is not None:
         if not os.path.exists("audio"):
@@ -106,7 +106,7 @@ def app():
         path = os.path.join("audio", audio_file.name)
         if_save_audio = save_audio(audio_file)
         if if_save_audio == 1:
-            st.warning("File size is too large. Try another file.")
+            st.warning("File quá lớn, hãy thử up lại file khác")
         elif if_save_audio == 0:
             # extract features
             # display audio
@@ -127,9 +127,9 @@ def app():
                     st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
             except Exception as e:
                 audio_file = None
-                st.error(f"Error {e} - wrong format of the file. Try another .wav file.")
+                st.error(f"Error {e} - Không hỗ trợ định dạnh file, hãy up file .wav, .mp3, .ogg")
         else:
-            st.error("Unknown error")
+            st.error("Lỗi không xác định")
 
 # if uploaded_file is not None:
 
