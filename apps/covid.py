@@ -20,9 +20,9 @@ def load_vgg():
 def load_yamnet():
 	return hub.load('https://tfhub.dev/google/yamnet/1')
 
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
-def load_covid():
-	return joblib.load("data/example_model.h5")
+# @st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+# def load_covid():
+# 	return joblib.load("data/example_model.h5")
 
 
 modelvgg = load_vgg()
@@ -66,7 +66,7 @@ def make_acoustic_feat(filename):
     return feat
 
 
-@st.cache(ttl=5*60)
+@st.cache(ttl=10*60)
 def save_audio(file):
     if file.size > 4000000:
         return 1
@@ -120,8 +120,8 @@ def app():
                 else:
                     X = make_acoustic_feat(path)
                     
-                    # model = joblib.load("data/example_model.h5")
-                    model = load_covid()
+                    model = joblib.load("data/example_model.h5")
+                    # model = load_covid()
                     y_predict = model.predict_proba(X)
                     y_predict = np.where(mask_X == True, y_predict, 0)
                     y_predict[:,1]
