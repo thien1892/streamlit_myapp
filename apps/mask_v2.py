@@ -9,7 +9,11 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 import numpy as np
 
-model = load_model("data/mask_detector.model")
+@st.cache(ttl=24*3600)
+def load_mask():
+	return load_model("data/mask_detector.model")
+
+model = load_mask()
 
 
 ###########################

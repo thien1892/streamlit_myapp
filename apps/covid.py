@@ -12,17 +12,17 @@ import joblib
 # import os
 from datetime import datetime
 
-@st.cache
+@st.cache(ttl=24*3600)
 def load_vgg():
 	return hub.load('https://tfhub.dev/google/vggish/1')
 
-@st.cache
+@st.cache(ttl=24*3600)
 def load_yamnet():
 	return hub.load('https://tfhub.dev/google/yamnet/1')
 
-# @st.cache
-# def load_covid():
-# 	return joblib.load("data/example_model.h5")
+@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None}, ttl=24*3600)
+def load_covid():
+	return joblib.load("data/example_model.h5")
 
 
 modelvgg = load_vgg()
@@ -119,7 +119,8 @@ def app():
                 else:
                     X = make_acoustic_feat(path)
                     
-                    model = joblib.load("data/example_model.h5")
+                    # model = joblib.load("data/example_model.h5")
+                    model = load_covid()
                     y_predict = model.predict_proba(X)
                     y_predict = np.where(mask_X == True, y_predict, 0)
                     y_predict[:,1]
