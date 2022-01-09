@@ -99,7 +99,7 @@ def app():
     Dự đoán covid qua tiếng ho, ứng dụng demo chỉ mang tính chất tham khảo. Dữ liệu đào tạo thu thập gần 6000 tiếng ho cho độ đặc hiệu: 98.95%, độ nhạy: 58.33%.
     ''')
     # uploaded_file = st.file_uploader('Tải file âm thanh của bạn lên', type= ['wav'])
-    audio_file = st.file_uploader("Tải file âm thanh lên:", type=['wav', 'mp3', 'ogg'])
+    audio_file = st.file_uploader("Tải file âm thanh lên:", type=['wav', 'mp3', 'ogg', 'm4a'])
     if audio_file is not None:
     # if audio_file is not None:
         if not os.path.exists("audio"):
@@ -128,7 +128,7 @@ def app():
                     st.text(f'Khả năng bị covid là: {y_predict[:,1][0] * 100:.2f} %')
             except Exception as e:
                 audio_file = None
-                st.error(f"Error {e} - Không hỗ trợ định dạnh file, hãy up file .wav, .mp3, .ogg")
+                st.error(f"Error {e} - Không hỗ trợ định dạnh file, hãy up file .wav, .mp3, .ogg, .m4a")
         else:
             st.error("Lỗi không xác định")
 
