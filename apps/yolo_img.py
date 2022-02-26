@@ -57,7 +57,7 @@ gdd.download_file_from_google_drive(file_id='1bhTkqX_I-JU7zGCi0owRTmfdw0QW-z15',
 def load_yolo():
 	return load_model('yolov3.h5')
 
-weight_yolo3()
+# weight_yolo3()
 model = load_yolo()
 
 # Model
